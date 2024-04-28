@@ -7,4 +7,5 @@ For instance, tmux's config file, which should be named as `.tmux.conf` under `$
 
 To link the files to actual directory with actual syntatical name, use:
 
-`ln <file_name> <PATH_TO_CONFIG_FILE_IN_SYS>` then voila!
+`ln <file_name> <PATH_TO_CONFIG_FILE_IN_SYS>` 
+to create a hard link to the repo file.
