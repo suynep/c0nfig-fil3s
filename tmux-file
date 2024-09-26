@@ -8,3 +8,5 @@ set -g mouse on
 
 # random ass comment just for checking purposes of the hard link lol
 
+set -sg escape-time 0
+
