@@ -10,3 +10,5 @@ set -g mouse on
 
 set -sg escape-time 0
 
+# make the status bar transparent
+set -g status-style bg=default
