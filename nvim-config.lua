@@ -13,6 +13,8 @@ vim.opt.smartindent = true
 -- change default leader key to space
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+-- yank to clipboard
+vim.opt.clipboard = "unnamedplus"
 
 -- Set up Lazy.nvim package manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -31,6 +33,7 @@ require("lazy").setup({
   { "hrsh7th/nvim-cmp" },
   { "folke/tokyonight.nvim" }, -- Theme
   { "rebelot/kanagawa.nvim" }, -- Theme
+  { "nyoom-engineering/oxocarbon.nvim" }, -- Theme
   { "williamboman/mason.nvim", build = ":MasonUpdate" },
   { "williamboman/mason-lspconfig.nvim" },
   { "windwp/nvim-autopairs", config = true }, -- for autoclosing of brackets
@@ -83,6 +86,10 @@ lspconfig.dartls.setup({
   end,
 })
 
+lspconfig.bashls.setup({
+  filetypes = { "sh", "bash", "zsh" },
+})
+
 -- Auto-completion Setup
 local cmp = require("cmp")
 cmp.setup({
@@ -95,4 +102,4 @@ cmp.setup({
   },
 })
 
-vim.cmd("colorscheme kanagawa-wave")
+vim.cmd("colorscheme oxocarbon")
