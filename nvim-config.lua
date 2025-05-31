@@ -16,6 +16,9 @@ vim.g.maplocalleader = " "
 -- yank to clipboard
 vim.opt.clipboard = "unnamedplus"
 
+-- set max pop up height (mainly for autocompletion menu)
+vim.o.pumheight = 5 
+
 -- Set up Lazy.nvim package manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -38,6 +41,12 @@ require("lazy").setup({
   { "williamboman/mason-lspconfig.nvim" },
   { "windwp/nvim-autopairs", config = true }, -- for autoclosing of brackets
   { "nvim-tree/nvim-tree.lua", dependencies = { "nvim-tree/nvim-web-devicons" } },
+  
+  -- Formatting of Programmin Files
+  {
+    'stevearc/conform.nvim',
+    opts = {},
+  },
 
   -- Autocompletion
   { "hrsh7th/nvim-cmp" },        -- Completion plugin
@@ -90,6 +99,53 @@ lspconfig.bashls.setup({
   filetypes = { "sh", "bash", "zsh" },
 })
 
+lspconfig.emmet_language_server.setup({
+  filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
+  -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
+  -- **Note:** only the options listed in the table are supported.
+  init_options = {
+    ---@type table<string, string>
+    includeLanguages = {},
+    --- @type string[]
+    excludeLanguages = {},
+    --- @type string[]
+    extensionsPath = {},
+    --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/preferences/)
+    preferences = {},
+    --- @type boolean Defaults to `true`
+    showAbbreviationSuggestions = true,
+    --- @type "always" | "never" Defaults to `"always"`
+    showExpandedAbbreviation = "always",
+    --- @type boolean Defaults to `false`
+    showSuggestionsAsSnippets = false,
+    --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/syntax-profiles/)
+    syntaxProfiles = {},
+    --- @type table<string, string> [Emmet Docs](https://docs.emmet.io/customization/snippets/#variables)
+    variables = {},
+  },
+})
+
+
+-- AutoFormatting Setup based on conform.nvim
+require("conform").setup({
+  format_on_save = {
+    lsp_fallback = true,
+    timeout_ms = 2000,
+  },
+  formatters_by_ft = {
+    lua = { "stylua" },
+    python = { "black" },
+    javascript = { "prettier" },
+    typescript = { "prettier" },
+    dart = { "dart_format" },
+    html = { "prettier" },
+    css = { "prettier" },
+    go = { "gofmt" },
+    rust = { "rustfmt" },
+  },
+})
+
+
 -- Auto-completion Setup
 local cmp = require("cmp")
 cmp.setup({
@@ -101,5 +157,6 @@ cmp.setup({
     { name = "nvim_lsp" },
   },
 })
+
 
 vim.cmd("colorscheme oxocarbon")
