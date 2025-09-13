@@ -52,6 +52,8 @@ require("lazy").setup({
   { "hrsh7th/nvim-cmp" },        -- Completion plugin
   { "hrsh7th/cmp-nvim-lsp" },    -- LSP source for nvim-cmp
   { "L3MON4D3/LuaSnip" },      
+  { "mattn/emmet-vim" }, -- this is for enabling emmet mode
+  { "kepano/flexoki" },
 })
 
 -- NvimTree config
@@ -130,7 +132,7 @@ lspconfig.emmet_language_server.setup({
 require("conform").setup({
   format_on_save = {
     lsp_fallback = true,
-    timeout_ms = 2000,
+    timeout_ms = 1000,
   },
   formatters_by_ft = {
     lua = { "stylua" },
@@ -159,4 +161,4 @@ cmp.setup({
 })
 
 
-vim.cmd("colorscheme oxocarbon")
+vim.cmd("colorscheme retrobox")
