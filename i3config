@@ -45,6 +45,10 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+# Alternative bindings for volume, augmenting the above, for my 65% keyboard
+bindsym Control+$mod+Up exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym Control+$mod+Down exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+
 # Brightness control
 bindsym Control+$mod+k exec --no-startup-id light -A 5
 bindsym Control+$mod+j exec --no-startup-id light -U 5
