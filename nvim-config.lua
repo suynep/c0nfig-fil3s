@@ -5,14 +5,20 @@ vim.cmd("syntax on")
 vim.opt.showmatch = true
 vim.opt.number = true
 
+-- timeout disable for smooth navigation
+vim.opt.timeoutlen=300
+vim.opt.ttimeoutlen=10
+
 -- Set indentation settings
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.smarttab = true
 vim.opt.smartindent = true
+
 -- change default leader key to space
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
 -- yank to clipboard
 vim.opt.clipboard = "unnamedplus"
 
@@ -54,6 +60,66 @@ require("lazy").setup({
   { "L3MON4D3/LuaSnip" },      
   { "mattn/emmet-vim" }, -- this is for enabling emmet mode
   { "kepano/flexoki" },
+
+  {
+    "folke/trouble.nvim",
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
+  },
+  {
+    "hat0uma/csvview.nvim",
+    ---@module "csvview"
+    ---@type CsvView.Options
+    opts = {
+      parser = { comments = { "#", "//" } },
+      keymaps = {
+        -- Text objects for selecting fields
+        textobject_field_inner = { "if", mode = { "o", "x" } },
+        textobject_field_outer = { "af", mode = { "o", "x" } },
+        -- Excel-like navigation:
+        -- Use <Tab> and <S-Tab> to move horizontally between fields.
+        -- Use <Enter> and <S-Enter> to move vertically between rows and place the cursor at the end of the field.
+        -- Note: In terminals, you may need to enable CSI-u mode to use <S-Tab> and <S-Enter>.
+        jump_next_field_end = { "<Tab>", mode = { "n", "v" } },
+        jump_prev_field_end = { "<S-Tab>", mode = { "n", "v" } },
+        jump_next_row = { "<Enter>", mode = { "n", "v" } },
+        jump_prev_row = { "<S-Enter>", mode = { "n", "v" } },
+      },
+    },
+    cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
+  }
 })
 
 -- NvimTree config
@@ -101,6 +167,10 @@ lspconfig.bashls.setup({
   filetypes = { "sh", "bash", "zsh" },
 })
 
+lspconfig.gopls.setup({
+  filetypes = {"go"},
+})
+
 lspconfig.emmet_language_server.setup({
   filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
   -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
@@ -136,7 +206,7 @@ require("conform").setup({
   },
   formatters_by_ft = {
     lua = { "stylua" },
-    python = { "black" },
+    python = { "ruff" },
     javascript = { "prettier" },
     typescript = { "prettier" },
     dart = { "dart_format" },
@@ -161,4 +231,4 @@ cmp.setup({
 })
 
 
-vim.cmd("colorscheme retrobox")
+vim.cmd("colorscheme kanagawa-dragon")
