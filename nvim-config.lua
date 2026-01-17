@@ -119,7 +119,8 @@ require("lazy").setup({
       },
     },
     cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
-  }
+  },
+  { "mfussenegger/nvim-dap" }
 })
 
 -- NvimTree config
@@ -127,13 +128,13 @@ require("nvim-tree").setup()
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle file tree" })
 
 -- Treesitter config
-require("nvim-treesitter.configs").setup({
-  ensure_installed = { "lua", "python", "javascript", "html", "css", "c", "cpp", "dart" }, -- Languages to install
-  highlight = { enable = true },  -- Enable syntax highlighting
-  indent = { enable = true },     -- Enable better indentation
-  incremental_selection = { enable = true },
-  textobjects = { enable = true },
-})
+-- require("nvim-treesitter.configs").setup({
+--   ensure_installed = { "lua", "python", "javascript", "html", "css", "c", "cpp", "dart" }, -- Languages to install
+--   highlight = { enable = true },  -- Enable syntax highlighting
+--   indent = { enable = true },     -- Enable better indentation
+--   incremental_selection = { enable = true },
+--   textobjects = { enable = true },
+-- })
 
 -- autopair setup
 require("nvim-autopairs").setup({
@@ -170,6 +171,9 @@ lspconfig.bashls.setup({
 lspconfig.gopls.setup({
   filetypes = {"go"},
 })
+
+
+lspconfig.rust_analyzer.setup({})
 
 lspconfig.emmet_language_server.setup({
   filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
@@ -231,4 +235,19 @@ cmp.setup({
 })
 
 
-vim.cmd("colorscheme kanagawa-dragon")
+vim.cmd("colorscheme peachpuff")
+vim.api.nvim_set_hl(0, "Visual", { bg = "#ffffff", fg = "NONE", blend = 10 })
+
+
+-- custom keybinds
+
+-- vim.keymap.set("n", "<C-]>", function()
+--     -- Open a new tab
+--     vim.cmd("tab split")
+--     -- Jump to the definition using the LSP function
+--     vim.lsp.buf.definition()
+-- end, { noremap = true, silent = true, desc = "Go to definition in a new tab" })
+
+
+
+
