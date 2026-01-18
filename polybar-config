@@ -30,7 +30,7 @@ alert = #A54242
 disabled = #707880
 
 [bar/example]
-font-0 = "SpaceMono Nerd Font:style=Regular:size=12;0"
+font-0 = "JetBrains Mono NL:style=Regular:size=12;0"
 width = 100%
 height = 30pt
 radius = 0

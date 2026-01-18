@@ -146,7 +146,11 @@ require("nvim-autopairs").setup({
 
 -- Mason Config
 require("mason").setup()
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = { "rust_analyzer", "pyright", "dartls", "bashls", "gopls" },
+})
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Load LSP configuration
 local lspconfig = require("lspconfig")
@@ -173,7 +177,9 @@ lspconfig.gopls.setup({
 })
 
 
-lspconfig.rust_analyzer.setup({})
+lspconfig.rust_analyzer.setup({
+	  capabilities = capabilities,
+})
 
 lspconfig.emmet_language_server.setup({
   filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
@@ -225,6 +231,12 @@ require("conform").setup({
 -- Auto-completion Setup
 local cmp = require("cmp")
 cmp.setup({
+  window = {
+    completion = {
+      max_width = 40,  -- Adjust this number to your preference (default is around 80)
+      max_height = 10,
+    },
+  },
   mapping = cmp.mapping.preset.insert({
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
@@ -235,8 +247,8 @@ cmp.setup({
 })
 
 
-vim.cmd("colorscheme peachpuff")
-vim.api.nvim_set_hl(0, "Visual", { bg = "#ffffff", fg = "NONE", blend = 10 })
+vim.cmd("colorscheme kanagawa-dragon")
+-- vim.api.nvim_set_hl(0, "Visual", { bg = "#00ffff", fg = "NONE", blend = 90 })
 
 
 -- custom keybinds
@@ -247,7 +259,3 @@ vim.api.nvim_set_hl(0, "Visual", { bg = "#ffffff", fg = "NONE", blend = 10 })
 --     -- Jump to the definition using the LSP function
 --     vim.lsp.buf.definition()
 -- end, { noremap = true, silent = true, desc = "Go to definition in a new tab" })
-
-
-
-
