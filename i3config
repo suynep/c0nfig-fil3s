@@ -203,6 +203,12 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+bindsym --release $mod+Shift+p exec flameshot gui -s
+bindsym --release $mod+Shift+Ctrl+p exec flameshot gui
+
+# to lock the screen
+bindsym --release $mod+Ctrl+l exec i3lock
+
 # border settings
 for_window [class="^.*"] border pixel 0
 
