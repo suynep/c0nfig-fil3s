@@ -132,6 +132,13 @@ require("lazy").setup({
       },
       config = true,
   },
+  {
+   'nvim-java/nvim-java',
+    config = function()
+      require('java').setup()
+      vim.lsp.enable('jdtls')
+    end,
+  },
 })
 
 -- NvimTree config
@@ -191,6 +198,9 @@ lspconfig.gopls.setup({
 lspconfig.rust_analyzer.setup({
 	  capabilities = capabilities,
 })
+
+
+lspconfig.kotlin_language_server.setup{}
 
 lspconfig.emmet_language_server.setup({
   filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
