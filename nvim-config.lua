@@ -53,6 +53,9 @@ require("lazy").setup({
     'stevearc/conform.nvim',
     opts = {},
   },
+  {
+    "seblyng/roslyn.nvim"
+  },
 
   -- Autocompletion
   { "hrsh7th/nvim-cmp" },        -- Completion plugin
@@ -147,7 +150,7 @@ vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle file tr
 
 -- Treesitter config
 -- require("nvim-treesitter.configs").setup({
---   ensure_installed = { "lua", "python", "javascript", "html", "css", "c", "cpp", "dart" }, -- Languages to install
+--   ensure_installed = { "lua", "python", "javascript", "html", "css", "c", "cpp", "dart", "markdown", "markdown_inline" }, -- Languages to install
 --   highlight = { enable = true },  -- Enable syntax highlighting
 --   indent = { enable = true },     -- Enable better indentation
 --   incremental_selection = { enable = true },
@@ -165,7 +168,7 @@ require("nvim-autopairs").setup({
 -- Mason Config
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "rust_analyzer", "pyright", "dartls", "bashls", "gopls" },
+  ensure_installed = { "rust_analyzer", "pyright", "bashls", "gopls" },
 })
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -177,14 +180,14 @@ local lspconfig = require("lspconfig")
 lspconfig.pyright.setup({})
 
 -- Configuration for Dart LSP
-lspconfig.dartls.setup({
-  cmd = { "dart", "language-server" },
-  filetypes = { "dart" },
-  root_dir = function(fname)
-    local project_root = lspconfig.util.root_pattern("pubspec.yaml")(fname)
-    return project_root or vim.fn.getcwd()  -- Always fallback to current directory
-  end,
-})
+-- lspconfig.dartls.setup({
+--   cmd = { "dart", "language-server" },
+--   filetypes = { "dart" },
+--   root_dir = function(fname)
+--     local project_root = lspconfig.util.root_pattern("pubspec.yaml")(fname)
+--     return project_root or vim.fn.getcwd()  -- Always fallback to current directory
+--   end,
+-- })
 
 lspconfig.bashls.setup({
   filetypes = { "sh", "bash", "zsh" },
@@ -231,10 +234,10 @@ lspconfig.emmet_language_server.setup({
 
 -- AutoFormatting Setup based on conform.nvim
 require("conform").setup({
-  format_on_save = {
-    lsp_fallback = true,
-    timeout_ms = 1000,
-  },
+  -- format_on_save = {
+  --   lsp_fallback = true,
+  --   timeout_ms = 1000,
+  -- },
   formatters_by_ft = {
     lua = { "stylua" },
     python = { "ruff" },
@@ -285,6 +288,21 @@ vim.lsp.config('rust_analyzer', {
   }
 })
 
+vim.lsp.config("roslyn", {
+    on_attach = function()
+        print("Hello, c# god!")
+    end,
+    settings = {
+        ["csharp|inlay_hints"] = {
+            csharp_enable_inlay_hints_for_implicit_object_creation = true,
+            csharp_enable_inlay_hints_for_implicit_variable_types = true,
+        },
+        ["csharp|code_lens"] = {
+            dotnet_enable_references_code_lens = true,
+        },
+    },
+})
+
 
 vim.cmd("colorscheme kanagawa-dragon")
 
@@ -314,8 +332,8 @@ require('neoscroll').setup({
 -- 4 flutter
 require("flutter-tools").setup {} -- use defaults
 
-
-
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
+vim.keymap.set("v", "<leader>a", vim.lsp.buf.code_action, { desc = "Code actions (visual)" })
 
 -- vim.api.nvim_set_hl(0, "Visual", { bg = "#00ffff", fg = "NONE", blend = 90 })
 
