@@ -61,7 +61,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec $HOME/.local/bin/kitty
+bindsym $mod+Return exec /usr/bin/kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
