@@ -226,6 +226,9 @@ exec_always --no-startup-id picom -b &
 exec_always --no-startup-id /usr/libexec/gsd-xsettings
 exec --no-startup-id dunst -conf ~/.config/dunst/dunstrc
 
+# increase repeat rate of keypresses (useful for fast vim nav)
+exec_always --no-startup-id xset r rate 170 30
+
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
