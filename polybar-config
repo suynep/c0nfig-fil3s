@@ -19,9 +19,10 @@
 
 ;; This config requires the `SpaceMono Nerd Font` to operate properly. Make sure to install it.
 
+;; 4F212121
 
 [colors]
-background = #4F212121
+background = #EE212121
 background-alt = #373B41
 foreground = #FFFFFF
 primary = #6ee0f4
@@ -169,8 +170,8 @@ label-connected = %{F#F0C674}%ifname%%{F-} %local_ip%
 type = internal/date
 interval = 1
 
-date = %H:%M:%S
-date-alt = %Y-%m-%d %H:%M:%S
+date = %Y-%m-%d %H:%M:%S
+date-alt = %H:%M:%S
 
 label = %date%
 label-foreground = ${colors.primary}
