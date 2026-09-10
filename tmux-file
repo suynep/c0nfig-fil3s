@@ -32,3 +32,8 @@ set-window-option -g window-status-style fg=cyan,bg=black
 set-option -g status-position top
 set-option -g status-justify centre
 set -g status-right ""
+set -g status-left ""
+
+set -g allow-passthrough on
+
+set-option -g history-limit 7000
